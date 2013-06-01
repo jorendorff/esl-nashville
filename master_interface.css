@@ -1,9 +1,27 @@
 html { height: 100% }
-body { height: 100%; margin: 0; padding: 0 }
+body { font-family: Helvetica, Arial, sans-serif; height: 100%; margin: 0; padding: 0 }
+
+
+.select_wrapper {
+    width: 160px;
+    overflow: hidden; 
+    border: 1px solid #784cc6;
+    background: url(images/icon_dropdown.png) no-repeat right;
+}
+
+.filter_menu {
+    width: 190px;
+    font-size: 18px;
+    color: #784cc6;
+    border: none;
+    background: transparent;
+    font-weight: lighter;
+    padding: 5px;
+}
 
 #map-canvas { 
     height: 100%;
-    margin-left: 80px;
+    margin-left: 242px;
 }
 
 #location-popup {
@@ -26,3 +44,37 @@ body { height: 100%; margin: 0; padding: 0 }
     font-weight: normal;
 }
 
+#navigation {
+    width: 242px;
+    height: 100%;
+    position: absolute;
+    z-index: 1000;
+    top: 0px;
+    left: 0px;
+    -moz-box-shadow: 3px 3px 4px #999;
+    -webkit-box-shadow: 3px 3px 4px #999;
+    box-shadow: 3px 3px 4px #999;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#999999')";
+    filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#999999');
+}
+
+#logo {
+    margin: 20px auto;
+    text-align: center;
+}
+
+#navigation ul {
+    margin: 0px;
+    padding: 0px 10px;
+}
+
+#navigation li {
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+    padding-left: 45px;
+}
+
+.start_date {
+    background: url(images/navigation_icons.png) 0 0 no-repeat;
+}
