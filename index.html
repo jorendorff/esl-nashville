@@ -1,59 +1,33 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-    <style type="text/css">
-      html { height: 100% }
-      body { height: 100%; margin: 0; padding: 0 }
-      #map-canvas { height: 100% }
-
-      #detail-popup {
-          padding: 2em 1em;
-          border: 1px solid #ddd;
-          border-radius: 0.8em;
-          background-color: white;
-          box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
-          display: none;
-          position: absolute;
-          right: 50px;
-          top: 30px;
-          width: 4in; height: 6in;
-          font-family: sans-serif;
-          color: #888;
-      }
-
-      #detail-popup th {
-          color: purple;
-          font-weight: normal;
-      }
-
-    </style>
-    <script src="http://ajax.aspnetcdn.com/ajax/knockout/knockout-2.2.1.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDgOeFbqElcSmR-zjycke6U8cvfS6E3x14&sensor=false"></script>
-    <script src="map_controller.js"></script>
-  </head>
-  <body>
-    <div id="map-canvas"></div>
-    <div id="detail-popup">
-      <div class="hide" onclick="hidePopup()">x</div>
-      <div class="organization" data-bind="text: organization"></div>
-      <div class="address" data-bind="text: address"></div>
-      <table>
-        <thead>
-          <tr>
-            <th>Class</th>
-            <th>Date</th>
-            <th>Fee</th>
-          </tr>
-        </thead>
-        <tbody data-bind="foreach: coursesAtLocation">
-          <tr>
-            <td class="level" data-bind="text: level"></td>
-            <td class="startDate" data-bind="text: startDate"></td>
-            <td class="fee" data-bind="text: fee"></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </body>
+    <head>
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+        <script src="http://ajax.aspnetcdn.com/ajax/knockout/knockout-2.2.1.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDgOeFbqElcSmR-zjycke6U8cvfS6E3x14&sensor=false"></script>
+        <script src="map_controller.js"></script>
+    </head>
+    <body>
+        <div id="map-canvas"></div>
+        <div id="detail-popup">
+            <div class="hide" onclick="hidePopup()">x</div>
+            <div class="organization" data-bind="text: organization"></div>
+            <div class="address" data-bind="text: address"></div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Class</th>
+                        <th>Date</th>
+                        <th>Fee</th>
+                    </tr>
+                </thead>
+                <tbody data-bind="foreach: coursesAtLocation">
+                    <tr>
+                        <td class="level" data-bind="text: level"></td>
+                        <td class="startDate" data-bind="text: startDate"></td>
+                        <td class="fee" data-bind="text: fee"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </body>
 </html>
