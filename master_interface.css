@@ -14,9 +14,11 @@ body { font-family: Helvetica, Arial, sans-serif; height: 100%; margin: 0; paddi
     font-size: 18px;
     color: #784cc6;
     border: none;
+    background: #fff;
     background: transparent;
     font-weight: lighter;
     padding: 5px;
+    -webkit-appearance:none;
 }
 
 #map-canvas { 
@@ -69,7 +71,7 @@ body { font-family: Helvetica, Arial, sans-serif; height: 100%; margin: 0; paddi
 }
 
 #navigation li {
-    margin: 0px;
+    margin: 10px 0px;
     padding: 0px;
     list-style: none;
     padding-left: 45px;
@@ -77,4 +79,8 @@ body { font-family: Helvetica, Arial, sans-serif; height: 100%; margin: 0; paddi
 
 .start_date {
     background: url(images/navigation_icons.png) 0 0 no-repeat;
+}
+
+.level {
+    background: url(images/navigation_icons.png) 2px -44px no-repeat;
 }
