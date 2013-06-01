@@ -6,23 +6,23 @@ body { height: 100%; margin: 0; padding: 0 }
     margin-left: 80px;
 }
 
-#detail-popup {
-  padding: 2em 1em;
-  border: 1px solid #ddd;
-  border-radius: 0.8em;
-  background-color: white;
-  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
-  display: none;
-  position: absolute;
-  right: 50px;
-  top: 30px;
-  width: 4in; height: 6in;
-  font-family: sans-serif;
-  color: #888;
+#location-popup {
+    padding: 2em 1em;
+    border: 1px solid #ddd;
+    border-radius: 0.8em;
+    background-color: white;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+    display: none;
+    position: absolute;
+    right: 50px;
+    top: 30px;
+    width: 4in; height: 6in;
+    font-family: sans-serif;
+    color: #888;
 }
 
-#detail-popup th {
-  color: purple;
-  font-weight: normal;
+#location-popup th {
+    color: purple;
+    font-weight: normal;
 }
 

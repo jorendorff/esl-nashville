@@ -9,7 +9,7 @@
     </head>
     <body>
         <div id="map-canvas"></div>
-        <div id="detail-popup">
+        <div id="location-popup">
             <div class="hide" onclick="hidePopup()">x</div>
             <div class="organization" data-bind="text: organization"></div>
             <div class="address" data-bind="text: address"></div>
@@ -23,12 +23,14 @@
                 </thead>
                 <tbody data-bind="foreach: coursesAtLocation">
                     <tr class="course">
-                        <td class="level" data-bind="text: level"></td>
+                        <td class="name" data-bind="text: courseName"></td>
                         <td class="startDate" data-bind="text: startDate"></td>
                         <td class="fee" data-bind="text: fee"></td>
                     </tr>
                 </tbody>
             </table>
+        </div>
+        <div id="course-detail">
         </div>
     </body>
 </html>

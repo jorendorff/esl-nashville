@@ -22,7 +22,7 @@ function startDataLoad() {
 
 // This is called when the data loads from the spreadsheet.
 function onSpreadsheetData(json) {
-    var fields = ["locationName", "address", "organization", "level", "startDate", "fee"];
+    var fields = ["locationName", "address", "organization", "courseName", "startDate", "fee"];
     var lastRow = {};
     json.feed.entry.forEach(function (row) {
         var newRow = {};
@@ -69,11 +69,11 @@ function showPopup(address) {
         address: address,
         coursesAtLocation: matches
     });
-    document.getElementById("detail-popup").style.display = "block";
+    document.getElementById("location-popup").style.display = "block";
 }
 
 function hidePopup() {
-    document.getElementById("detail-popup").style.display = "none";
+    document.getElementById("location-popup").style.display = "none";
 }
 
 
