@@ -22,7 +22,6 @@ function onSpreadsheetData(json) {
             var fieldName = name.toLowerCase();
             if (fieldName == "address")
                 fieldName = "locationaddress";
-            console.log(name);
             var value = row["gsx$" + fieldName].$t;
             newRow[name] = value || lastRow[name];
         });
