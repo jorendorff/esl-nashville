@@ -1,7 +1,15 @@
-
 // Data =================================================================
 var haveData = false;
 var courses = [];
+
+// Load and run a script.
+function load(url) {
+    var script = document.createElement('script');
+    script.setAttribute('src', url);
+    script.setAttribute('id', 'jsonScript');
+    script.setAttribute('type', 'text/javascript');
+    document.documentElement.firstChild.appendChild(script);
+}
 
 // Ask for data from the spreadsheet.
 function startDataLoad() {
@@ -26,6 +34,8 @@ function onSpreadsheetData(json) {
             newRow[name] = value || lastRow[name];
         });
         lastRow = newRow;
+
+        // Only add the row to courses if it has been approved.
         if (row.gsx$status.$t == 'Approved')
             courses.push(newRow);
     });
@@ -33,10 +43,28 @@ function onSpreadsheetData(json) {
     updateMap();
 }
 
+
+// Knockout bindings :( =======================================================
+
+function ViewModel() {
+    // not too fond of Knockout at the moment
+    this.organization = ko.observable();
+    this.address = ko.observable();
+    this.coursesAtLocation = ko.observableArray();
+    this.update = function (data) {
+        this.organization(data.organization);
+        this.address(data.address);
+        this.coursesAtLocation.removeAll();
+        this.coursesAtLocation.push.apply(this.coursesAtLocation, data.coursesAtLocation);
+    };
+}
+
+var model = new ViewModel;
+
 function showPopup(address) {
     var matches = courses.filter(function (course) { return course.address == address; });
     var c = matches[0]
-    ko.applyBindings({
+    model.update({
         organization: c.organization,
         address: address,
         coursesAtLocation: matches
@@ -48,7 +76,8 @@ function hidePopup() {
     document.getElementById("detail-popup").style.display = "none";
 }
 
-// Map ==================================================================
+
+// Map ========================================================================
 google.maps.visualRefresh = true;
 var map = undefined, geocoder;
 
@@ -74,15 +103,6 @@ function insertPin(course) {
         });
 }
 
-// Load and run a script.
-function load(url) {
-    var script = document.createElement('script');
-    script.setAttribute('src', url);
-    script.setAttribute('id', 'jsonScript');
-    script.setAttribute('type', 'text/javascript');
-    document.documentElement.firstChild.appendChild(script);
-}
-
 function initialize() {
     // Create the map.
     map = new google.maps.Map(document.getElementById("map-canvas"), {
@@ -93,29 +113,10 @@ function initialize() {
     geocoder = new google.maps.Geocoder();
 
     startDataLoad();
+    ko.applyBindings(model);
 }
 
 function updateMap() {
-    // // Create the list of matching courses, grouped by location.
-    // var locations = [];
-    // for (var i = 0; i < courses.length; i++) {
-    //     var course = courses[i];
-    // 
-    //     // Have we already got a matching course at this location?
-    //     var found = false;
-    //     for (var j = 0; j < locations.length; i++) {
-    //         if (course.locationName == locations[j][0].locationName) {
-    //             // Yes, so add this course to the other course we already found.
-    //             locations[j].push(course);
-    //             found = true;
-    //             break;
-    //         }
-    //     }
-    //     if (!found) {
-    //         // No, so make a new location group with just this course in it.
-    //         locations.push([course]);
-    //     }
-    // }
     for (var i = 0; i < courses.length; i++)
         insertPin(courses[i]);
 }
