@@ -154,8 +154,14 @@ function initialize() {
 }
 
 function updateMap() {
-    for (var i = 0; i < courses.length; i++)
-        insertPin(courses[i]);
+    var pinAddresses = [];
+
+    courses.forEach(function (course) {
+        if (pinAddresses.indexOf(course.address) === -1) {
+            pinAddresses.push(course.address);
+            insertPin(course);
+        }
+    });
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
