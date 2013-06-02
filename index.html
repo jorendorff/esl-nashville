@@ -5,6 +5,7 @@
         <link rel="stylesheet" type="text/css" href="master_interface.css" />
         <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.9.1.min.js"></script>
         <script src="http://ajax.aspnetcdn.com/ajax/knockout/knockout-2.2.1.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.0.0/moment.min.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDgOeFbqElcSmR-zjycke6U8cvfS6E3x14&sensor=false"></script>
         <script src="map_controller.js"></script>
     </head>
@@ -17,9 +18,9 @@
                 <li class="start_date" title="Select Time Frame">
                     <div class="select_wrapper">
                         <select id="start_date_menu" class="filter_menu">
-                            <option value="">Next 30 Days</option>
-                            <option value="">30 - 60 Days</option>
-                            <option value="">60 - 90 Days</option>
+                            <option value="30">Next 30 Days</option>
+                            <option value="60">30 - 60 Days</option>
+                            <option value="90">60 - 90 Days</option>
                         </select>
                     </div>
                 </li>
@@ -27,9 +28,9 @@
                     <div class="select_wrapper">
                         <select id="level_menu" class="filter_menu">
                             <option value="">Any</option>
-                            <option value="">Beginner</option>
-                            <option value="">Intermediate</option>
-                            <option value="">Advanced</option>
+                            <option value="beginner">Beginner</option>
+                            <option value="intermediate">Intermediate</option>
+                            <option value="advanced">Advanced</option>
                         </select>
                     </div>
                 </li>

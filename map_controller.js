@@ -2,15 +2,6 @@
 var haveData = false;
 var courses = [];
 
-// Load and run a script.
-function load(url) {
-    var script = document.createElement('script');
-    script.setAttribute('src', url);
-    script.setAttribute('id', 'jsonScript');
-    script.setAttribute('type', 'text/javascript');
-    document.documentElement.firstChild.appendChild(script);
-}
-
 // Ask for data from the spreadsheet.
 function startDataLoad(callback) {
     var spreadsheetKey = "0Asw-rVCOgjt8dFBndXdYTWVhaDJpaW5LbXl2QTliUWc";
@@ -56,6 +47,18 @@ function onSpreadsheetData(json) {
     haveData = true;
 }
 
+function getFilteredCourses() {
+    return courses.filter(function (course) {
+        var startDate = parseInt($("#start_date_menu").val());
+
+        var level = $("#level_menu").val();
+        if (level !== "" && course.courseName.toLowerCase().indexOf(level.toLowerCase()) !== -1)
+            return false;
+
+        return true;
+    });
+}
+
 
 // Knockout bindings :( =======================================================
 
@@ -99,16 +102,25 @@ function ViewModel() {
 }
 
 var model = new ViewModel;
+var selectedAddress = null;
 
-function showPopup(address) {
-    var matches = courses.filter(function (course) { return course.address == address; });
-    var c = matches[0]
-    model.update({
-        organization: c.organization,
-        address: address,
-        coursesAtLocation: matches
+function selectAddress(address) {
+    selectedAddress = address;
+    updatePopup();
+}
+
+function updatePopup() {
+    var matches = getFilteredCourses().filter(function (course) {
+        return course.address == selectedAddress;
     });
-    document.getElementById("location-popup").style.display = "block";
+    if (matches.length !== 0) {
+        model.update({
+            organization: matches[0].organization,
+            address: selectedAddress,
+            coursesAtLocation: matches
+        });
+        document.getElementById("location-popup").style.display = "block";
+    }
 }
 
 function hidePopup() {
@@ -134,7 +146,7 @@ function insertPin(course) {
                     title: organization
                 });
                 google.maps.event.addListener(marker, 'click', function() {
-                    showPopup(address);
+                    selectAddress(address);
                 });
             } else {
                 console.error("Geocoding failed: " + status);
@@ -158,7 +170,7 @@ function initialize() {
 function updateMap() {
     var pinAddresses = [];
 
-    courses.forEach(function (course) {
+    getFilteredCourses().forEach(function (course) {
         if (pinAddresses.indexOf(course.address) === -1) {
             pinAddresses.push(course.address);
             insertPin(course);
