@@ -22,14 +22,14 @@ function startDataLoad() {
 
 // This is called when the data loads from the spreadsheet.
 function onSpreadsheetData(json) {
-    var fields = ["locationName", "address", "organization", "courseName", "startDate", "fee"];
+    var fields = ["locationName", "address", "organization", "courseName",
+                  "startDate", "fee", "days", "times", "description",
+                  "contactInfo", "url"];
     var lastRow = {};
     json.feed.entry.forEach(function (row) {
         var newRow = {};
         fields.forEach(function (name) {
             var fieldName = name.toLowerCase();
-            if (fieldName == "address")
-                fieldName = "locationaddress";
             var value = row["gsx$" + fieldName].$t;
             newRow[name] = value || lastRow[name];
         });
@@ -47,15 +47,41 @@ function onSpreadsheetData(json) {
 // Knockout bindings :( =======================================================
 
 function ViewModel() {
-    // not too fond of Knockout at the moment
-    this.organization = ko.observable();
-    this.address = ko.observable();
-    this.coursesAtLocation = ko.observableArray();
-    this.update = function (data) {
-        this.organization(data.organization);
-        this.address(data.address);
-        this.coursesAtLocation.removeAll();
-        this.coursesAtLocation.push.apply(this.coursesAtLocation, data.coursesAtLocation);
+    var self = this;
+
+    self.organization = ko.observable();
+    self.address = ko.observable();
+    self.coursesAtLocation = ko.observableArray();
+    self.anySelected = ko.observable(false);
+    self.selectedCourseName = ko.observable();
+    self.selectedDays = ko.observable();
+    self.selectedTimes = ko.observable();
+    self.selectedDescription = ko.observable();
+    self.selectedContactInfo = ko.observable();
+    self.selectedUrl = ko.observable();
+    
+    self.select = function (data) {
+        self.selectedCourseName(data.courseName);
+        self.selectedDays(data.days);
+        self.selectedTimes(data.times);
+        self.selectedDescription(data.description);
+        self.selectedContactInfo(data.contactInfo);
+        self.selectedUrl(data.url);
+        self.anySelected(true);
+    };
+
+    self.update = function (data) {
+        self.organization(data.organization);
+        self.address(data.address);
+        self.coursesAtLocation.removeAll();
+        data.coursesAtLocation.forEach(function (course) {
+            self.coursesAtLocation.push(course);
+        });
+        self.anySelected(false);
+    };
+
+    self.viewWebsite = function () {
+        document.location.href = self.selectedUrl();
     };
 }
 

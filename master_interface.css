@@ -21,8 +21,28 @@ body { height: 100%; margin: 0; padding: 0 }
     color: #888;
 }
 
+#location-popup table {
+    border-collapse: collapse;
+}
+
 #location-popup th {
     color: purple;
     font-weight: normal;
+    text-align: left;
 }
 
+#location-popup tbody tr:hover {
+    background-color: #f8e8ff;
+}
+
+#location-popup td, #location-popup td {
+    padding: 0.3em 1.5em;
+}
+
+button {
+    background-color: purple;
+    color: white;
+    padding: 0.3em 1.5em;
+    border-radius: 0.3em;
+    border: none;
+}
