@@ -109,6 +109,21 @@ body {
     text-align: center;
 }
 
+#navigation p {
+    font-size: 16px;
+    color: #666666;
+}
+
+#aboutLink {
+    position: absolute;
+    bottom: 20px;
+    left: 50px;
+    font-size: 18px;
+    color: #666666;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
 #navigation ul {
     margin: 0px;
     padding: 0px 10px;
@@ -189,4 +204,32 @@ button {
 
 .hide:hover {
     background: url(images/icon_close_over.png) top left no-repeat;
+}
+
+#about_window {
+    display: none;
+    background: #fff;
+    position: absolute;
+    min-height: 90%;
+    width: 80%;
+    z-index: 2000;
+    top: 25px;
+    right: 70px;
+    box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.3);
+}
+
+#about_window p {
+    font-size: 20px;
+    color: #666666;
+    margin: 25px 50px;
+    line-height: 35px;
+}
+
+#big_logo {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.hide_about  {
+    margin-right: 20px;
 }

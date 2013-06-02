@@ -263,7 +263,14 @@ function initialize() {
 
     ko.applyBindings(model);
     $("select.filter_menu").change(updateMap);
+    $("#aboutLink").click(function() {
+        $("#about_window").toggle();    
+    });
     startDataLoad(updateMap);
+}
+
+function hideAbout() {
+    $("#about_window").toggle();    
 }
 
 function updateMap() {

@@ -10,9 +10,31 @@
         <script src="map_controller.js"></script>
     </head>
     <body>
+        <div id="about_window">
+            <div id="big_logo">
+                <div class="hide hide_about" id="hide_about" onclick="hideAbout()"></div>
+                <a href="http://www.nashville.gov/humanrelations" target="_blank">
+                    <img src="images/logo_big.png" border="0" />
+                </a>
+                <p>wESL (We ESL) is a platform for easily finding ESL 
+                (English as a Second Language) classes in Nashville, TN. 
+                All organizations that offer ESL classes are listed on the map. 
+                You can click on the map location for more information about the 
+                organizations and the classes they offer.</p>
+
+                <p>The wESL platform is offered and maintained by the Metro Human 
+                Relations Commission. If you would like your organization's classes 
+                to be added to the platform, please send an email to <a href="mailto:mhrc@nashville.gov">mhrc@nashville.gov</a> 
+                with "wESL" in the subject line. For more info about the Metro Human Relations 
+                Commission, please visit <a href="http://www.nashville.gov/humanrelations" target="_blank">www.nashville.gov/humanrelations.</a></p>
+            </div>
+        </div>
         <div id="navigation">
             <div id="logo">
-                <img src="images/logo.png" border="0" />
+                <a href="http://www.nashville.gov/humanrelations" target="_blank">
+                    <img src="images/logo.png" border="0" />
+                </a>
+                <p>Davidson County English Language Courses</p>
             </div>
             <ul>
                 <li class="start_date" title="Select Time Frame">
@@ -71,6 +93,9 @@
                     </div>
                 </li>
             </ul>
+            <div id="aboutLink">
+                About this App
+            </div>
         </div>
         <div id="map-canvas"></div>
         <div id="location-popup">
