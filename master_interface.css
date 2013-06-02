@@ -84,6 +84,11 @@ body {
     border: 1px solid;
 }
 
+.course_wrapper {
+    max-height: 150px;
+    overflow: auto;
+}
+
 #navigation {
     width: 242px;
     height: 100%;
