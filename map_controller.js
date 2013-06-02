@@ -12,12 +12,15 @@ function load(url) {
 }
 
 // Ask for data from the spreadsheet.
-function startDataLoad() {
+function startDataLoad(callback) {
     var spreadsheetKey = "0Asw-rVCOgjt8dFBndXdYTWVhaDJpaW5LbXl2QTliUWc";
     var wsId = "od6";
-    load('http://spreadsheets.google.com/feeds/list'
-         + '/' + spreadsheetKey + '/' + wsId + '/public/values' +
-         '?alt=json-in-script&callback=onSpreadsheetData');
+    var url = "http://spreadsheets.google.com/feeds/list/" + spreadsheetKey + "/" + wsId + "/public/values?alt=json";
+
+    $.getJSON(url, function (json) {
+        onSpreadsheetData(json);
+        callback();
+    });
 }
 
 // This is called when the data loads from the spreadsheet.
@@ -51,7 +54,6 @@ function onSpreadsheetData(json) {
             courses.push(newRow);
     });
     haveData = true;
-    updateMap();
 }
 
 
@@ -149,8 +151,8 @@ function initialize() {
     });
     geocoder = new google.maps.Geocoder();
 
-    startDataLoad();
     ko.applyBindings(model);
+    startDataLoad(updateMap);
 }
 
 function updateMap() {
