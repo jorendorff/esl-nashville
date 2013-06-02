@@ -51,7 +51,11 @@ body { font-family: Helvetica, Arial, sans-serif; height: 100%; margin: 0; paddi
     text-align: left;
 }
 
-#location-popup tbody tr:hover {
+.course {
+    cursor: pointer;
+}
+
+.course:hover {
     background-color: #f3e8f8;
 }
 

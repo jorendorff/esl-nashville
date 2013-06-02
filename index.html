@@ -75,18 +75,18 @@
             <div class="hide" onclick="hidePopup()">x</div>
             <div class="organization" data-bind="text: organization"></div>
             <div class="address" data-bind="text: address"></div>
-            <table>
+            <table width="100%">
                 <thead>
                     <tr>
-                        <th>Class</th>
-                        <th>Date</th>
+                        <th width="60%">Class</th>
+                        <th width="20%">Date</th>
                         <th>Fee</th>
                     </tr>
                 </thead>
                 <tbody data-bind="foreach: coursesAtLocation">
                     <tr class="course" data-bind="click:$parent.select">
-                        <td class="name" data-bind="text: courseName"></td>
-                        <td class="startDate" data-bind="text: startDate"></td>
+                        <td width="60%" class="name" data-bind="text: courseName"></td>
+                        <td width="60%" class="startDate" data-bind="text: startDate"></td>
                         <td class="fee" data-bind="text: fee"></td>
                     </tr>
                 </tbody>
