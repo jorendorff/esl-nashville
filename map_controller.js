@@ -28,10 +28,21 @@ function onSpreadsheetData(json) {
     var lastRow = {};
     json.feed.entry.forEach(function (row) {
         var newRow = {};
+
+        // Empty cells are automatically filled based on the preceding row, but
+        // ONLY if this row has the same organization as the last one.
+        // Obviously it would be silly to auto-fill a row for one course with
+        // values from a different organization's course!
+        var org = row.gsx$organization.$t;
+        var sameOrg = org === lastRow.organization || org === "";
+
+        // Populate all the fields.
         fields.forEach(function (name) {
             var fieldName = name.toLowerCase();
             var value = row["gsx$" + fieldName].$t;
-            newRow[name] = value || lastRow[name];
+            if (sameOrg && value === "")
+                value = lastRow[name];
+            newRow[name] = value;
         });
         lastRow = newRow;
 

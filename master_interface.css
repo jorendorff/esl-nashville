@@ -32,14 +32,34 @@ body { height: 100%; margin: 0; padding: 0 }
 }
 
 #location-popup tbody tr:hover {
-    background-color: #f8e8ff;
+    background-color: #f3e8f8;
 }
 
 #location-popup td, #location-popup td {
     padding: 0.3em 1.5em;
 }
 
+h4.courseName {
+    font-weight: normal;
+    margin-top: 1em;
+    color: purple;
+    margin-bottom: 0.1em;
+    padding-bottom: 0;
+}
+
+div.description {
+    padding-top: 0.4em;
+    padding-bottom: 0.5em;
+}
+
+div.contactInfo {
+    font-size: 85%;
+}
+
 button {
+    margin-left: auto;
+    margin-right: 0;
+    width: 6em;
     background-color: purple;
     color: white;
     padding: 0.3em 1.5em;
