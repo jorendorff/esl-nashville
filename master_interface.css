@@ -72,6 +72,7 @@ body {
 
 .course {
     cursor: pointer;
+    background: url(images/icon_class_arrow.png) right 5px no-repeat;
 }
 
 .course:hover {
@@ -143,6 +144,10 @@ body {
 #location-popup td, #location-popup td {
     padding: 6px .5em;
     font-size: 14px;
+}
+
+.name {
+    text-decoration: underline;
 }
 
 h4.courseName {
