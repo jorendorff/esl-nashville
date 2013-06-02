@@ -16,8 +16,8 @@ function startDataLoad(callback) {
 
 // This is called when the data loads from the spreadsheet.
 function onSpreadsheetData(json) {
-    var fields = ["locationName", "address", "organization", "courseName",
-                  "startDate", "fee", "days", "times", "description",
+    var fields = ["organization", "locationName", "address", "latitudeLongitude",
+                  "courseName", "startDate", "fee", "days", "times", "description",
                   "contactInfo", "url"];
     var lastRow = {};
     json.feed.entry.forEach(function (row) {
@@ -164,23 +164,32 @@ function insertPin(course) {
     var address = course.address;
     var organization = course.organization;
 
-    geocoder.geocode(
-        {'address': address},
-        function (results, status) {
-            if (status == google.maps.GeocoderStatus.OK) {
-                var marker = new google.maps.Marker({
-                    map: map,
-                    position: results[0].geometry.location,
-                    title: organization
-                });
-                markers.push(marker);
-                google.maps.event.addListener(marker, 'click', function() {
-                    selectAddress(address);
-                });
-            } else {
-                console.error("Geocoding failed: " + status);
-            }
+    if (course.latitudeLongitude === "") {
+        geocoder.geocode(
+            {'address': address},
+            function (results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    makeMarker(results[0].geometry.location);
+                } else {
+                    console.error("Geocoding failed: " + status);
+                }
+            });
+    } else {
+        var parts = course.latitudeLongitude.split(",");
+        makeMarker(new google.maps.LatLng(Number(parts[0]), Number(parts[1])));
+    }
+
+    function makeMarker(location) {
+        var marker = new google.maps.Marker({
+            map: map,
+            position: location,
+            title: organization
         });
+        markers.push(marker);
+        google.maps.event.addListener(marker, 'click', function() {
+            selectAddress(address);
+        });
+    }
 }
 
 function initialize() {
