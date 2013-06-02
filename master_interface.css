@@ -141,3 +141,15 @@ button {
     border-radius: 0.3em;
     border: none;
 }
+
+.hide {
+    float: right;
+    width: 26px;
+    height: 26px;
+    cursor: pointer;
+    background: url(images/icon_close_default.png) top left no-repeat;
+}
+
+.hide:hover {
+    background: url(images/icon_close_over.png) top left no-repeat;
+}
