@@ -94,6 +94,18 @@ body { font-family: Helvetica, Arial, sans-serif; height: 100%; margin: 0; paddi
     background: url(images/navigation_icons.png) 2px -44px no-repeat;
 }
 
+.cost {
+    background: url(images/navigation_icons.png) 0px -90px no-repeat;
+}
+
+.day {
+    background: url(images/navigation_icons.png) 0px -130px no-repeat;
+}
+
+.time {
+    background: url(images/navigation_icons.png) 0px -177px no-repeat;
+}
+
 #location-popup td, #location-popup td {
     padding: 0.3em 1.5em;
 }
