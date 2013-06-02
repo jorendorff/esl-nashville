@@ -47,14 +47,41 @@ function onSpreadsheetData(json) {
     haveData = true;
 }
 
+// This is the function that figures out which courses to show on the map.
 function getFilteredCourses() {
+    // For each course, execute the function to determine whether we should
+    // show it or not.
     return courses.filter(function (course) {
+        // Filter by start date.
         var startDate = parseInt($("#start_date_menu").val());
-
+        // TODO: compare course.startDate against the selected value.
+        // if (cost.startDate is not in range)
+        //     return false;
+        
+        // Filter by level.
         var level = $("#level_menu").val();
-        if (level !== "" && course.courseName.toLowerCase().indexOf(level.toLowerCase()) !== -1)
+        if (level !== "" && course.courseName.toLowerCase().indexOf(level.toLowerCase()) === -1)
             return false;
 
+        // Filter by cost.
+        var fee = $("#cost_menu").val();
+        // TODO: compare course.fee against the selected value.
+        // if (course.fee is not in range)
+        //     return false;
+
+        // Filter by day of week.
+        var days = $("#day_menu").val();
+        // TODO: compare course.days against the selected value.
+        // if (course.days does not match days)
+        //     return false;
+
+        // Filter by time of day.
+        var time = $("#time_menu").val();
+        // TODO: compare course.times against the selected value.
+        // if (course.times does not match time)
+        //     return false;
+
+        // If we passed all those, this course is selected. Hooray!
         return true;
     });
 }
@@ -131,6 +158,7 @@ function hidePopup() {
 // Map ========================================================================
 google.maps.visualRefresh = true;
 var map = undefined, geocoder;
+var markers = [];
 
 function insertPin(course) {
     var address = course.address;
@@ -145,6 +173,7 @@ function insertPin(course) {
                     position: results[0].geometry.location,
                     title: organization
                 });
+                markers.push(marker);
                 google.maps.event.addListener(marker, 'click', function() {
                     selectAddress(address);
                 });
@@ -164,18 +193,28 @@ function initialize() {
     geocoder = new google.maps.Geocoder();
 
     ko.applyBindings(model);
+    $("select.filter_menu").change(updateMap);
     startDataLoad(updateMap);
 }
 
 function updateMap() {
-    var pinAddresses = [];
+    // Remove any old pins from the map.
+    markers.forEach(function (marker) {
+        marker.setMap(null);
+    });
+    markers = [];
 
+    // Insert new pins.
+    var pinAddresses = [];
     getFilteredCourses().forEach(function (course) {
         if (pinAddresses.indexOf(course.address) === -1) {
             pinAddresses.push(course.address);
             insertPin(course);
         }
     });
+
+    // If the popup is visible, we'll want to update that too.
+    updatePopup();
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
