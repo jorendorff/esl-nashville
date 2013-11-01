@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta charset="utf-8">
         <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
         <link rel="stylesheet" type="text/css" href="master_interface.css" />
         <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.9.1.min.js"></script>
@@ -8,6 +9,7 @@
         <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.0.0/moment.min.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDgOeFbqElcSmR-zjycke6U8cvfS6E3x14&sensor=false"></script>
         <script src="map_controller.js"></script>
+        <meta name="Authors" content="Jason Orendorff, Jacques Woodcock, Amber Adams, Chuck Bryant" />
     </head>
     <body>
         <div id="about_window">
@@ -36,6 +38,7 @@
                 </a>
                 <p>Davidson County English Language Courses</p>
             </div>
+            <div id="filters">
             <ul>
                 <li class="start_date" title="Select Time Frame">
                     <div class="select_wrapper">
@@ -50,9 +53,14 @@
                     <div class="select_wrapper">
                         <select id="level_menu" class="filter_menu">
                             <option value="">Any</option>
-                            <option value="beginner">Beginner</option>
-                            <option value="intermediate">Intermediate</option>
-                            <option value="advanced">Advanced</option>
+                            <option value="pre-literate">Pre-Literate</option>
+                            <option value="levels1">Levels 1</option>
+                            <option value="levels2">Levels 2</option>
+                            <option value="levels3">Levels 3</option>
+                            <option value="levels4">Levels 4</option>
+                            <option value="levels5">Levels 5</option>
+                            <option value="conversation">Conversation</option>
+                            <option value="ged">GED</option>
                         </select>
                     </div>
                 </li>
@@ -60,45 +68,30 @@
                     <div class="select_wrapper">
                         <select id="cost_menu" class="filter_menu">
                             <option value="free">Free</option>
-                            <option value="100">0 - 100</option>
-                            <option value="200">101 - 200</option>
-                            <option value="201">200 +</option>
+                            <option value="10">$10</option>
+                            <option value="20">$20</option>
+                            <option value="30">$30</option>
+                            <option value="40">$40</option>
+                            <option value="50">$50</option>
+                            <option value="60">$60+</option>
                             <option value="">Any</option>
-                        </select>
-                    </div>
-                </li>
-                <li class="day" title="Select Day of the Week">
-                    <div class="select_wrapper">
-                        <select id="day_menu" class="filter_menu">
-                            <option value="">Any</option>
-                            <option value="Monday">Monday</option>
-                            <option value="Tuesday">Tuesday</option>
-                            <option value="Wednesday">Wednesday</option>
-                            <option value="Thursday">Thursday</option>
-                            <option value="Friday">Friday</option>
-                            <option value="Saturday">Saturday</option>
-                            <option value="Sunday">Sunday</option>
-                        </select>
-                    </div>
-                </li>
-                <li class="time" title="Select Level">
-                    <div class="select_wrapper">
-                        <select id="time_menu" class="filter_menu">
-                            <option value="">Any</option>
-                            <option value="07:59:00">Before 8am</option>
-                            <option value="12:00:00">8am to Noon</option>
-                            <option value="17:00:00">1 to 5pm</option>
-                            <option value="24:00:00">After 5pm</option>
                         </select>
                     </div>
                 </li>
             </ul>
+            </div>
+            <div id="search_button">
+                <button onclick="showHideLocations()"value="SEARCH" id="search_button">SEARCH</button>
+            </div>
             <div id="aboutLink">
                 About this App
             </div>
         </div>
         <div id="map-canvas"></div>
         <div id="location-popup">
+            <div class="back_top" id="course-back">
+                <button class="back_button" style="width: 100%" onclick="toggleDetails();">&lt; Back to Locations</button>
+            </div>
             <div class="hide" onclick="hidePopup()"></div>
             <div class="organization" data-bind="text: organization"></div>
             <div class="address" data-bind="text: address"></div>
@@ -122,12 +115,25 @@
             </div>
             <div id="course-detail" data-bind="visible: anySelected">
                 <h4 class="courseName" data-bind="text: selectedCourseName"></h4>
-                <div class="days" data-bind="text: selectedDays"></div>
-                <div class="times" data-bind="text: selectedTimes"></div>
                 <div class="description" data-bind="text: selectedDescription"></div>
                 <div class="contactInfo" data-bind="text: selectedContactInfo"></div>
                 <button class="website" data-bind="click: viewWebsite">Website</button>
             </div>
+        </div>
+        <div id="location-list">
+            <div class="back_top" id="location-back">
+                <button class="back_button" onclick="showHideLocations()">&lt; Back to Search</button>
+            </div>
+            <table width="100%" id="location_table">
+                <thead>
+                    <tr>
+                        <th align="left">Locations</th>
+                    </tr>
+                </thead>
+                <tbody >
+                    <tr></tr>
+                </tbody>
+            </table>
         </div>
     </body>
 </html>

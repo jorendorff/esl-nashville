@@ -17,8 +17,8 @@ function startDataLoad(callback) {
 // This is called when the data loads from the spreadsheet.
 function onSpreadsheetData(json) {
     var fields = ["organization", "locationName", "address", "latitudeLongitude",
-                  "courseName", "startDate", "fee", "days", "times", "description",
-                  "contactInfo", "url"];
+                  "courseName", "startDate", "fee", "description", "contactInfo",
+                  "url"];
     var lastRow = {};
     json.feed.entry.forEach(function (row) {
         var newRow = {};
@@ -45,6 +45,13 @@ function onSpreadsheetData(json) {
             courses.push(newRow);
     });
     haveData = true;
+}
+
+function listLocation(organization, address) {
+        var output = '<tr class="locations"><td class="location-list">' 
+            + '<div class="location-button" onclick="selectAddressFromList(\'' + address + '\');">' 
+            + organization + '</div></td></tr>';
+        $('#location_table tr:last').after(output);
 }
 
 // This is the function that figures out which courses to show on the map.
@@ -96,51 +103,6 @@ function getFilteredCourses() {
             }
         }
 
-        // Filter by day of week.
-        var day = $("#day_menu").val();
-        if (day !== "") {
-            var courseDay = course.days;
-            courseDay = courseDay.split(',');
-            var showMark = false;
-            courseDay.forEach(function (courseDay) {
-                if (courseDay.toLowerCase() === day.toLowerCase()) {
-                    showMark = true;
-                }
-            });
-            if (showMark === false) {
-                return false;
-            }
-        }
-
-        // Filter by time of day.
-        var time = $("#time_menu").val();
-        var courseTime = course.times;
-        if (time !== "") {
-            if (courseTime === "") {
-                return false;
-            }
-            courseTime = moment(course.times, "HH:mm:ss");
-            var startRange = moment("00:00:00", "HH:mm:ss");
-            var compareTime = moment("07:59:00", "HH:mm:ss");
-            if (time === "12:00:00") {
-                startRange = moment("08:00:00", "HH:mm:ss");
-                compareTime = moment("12:00:00", "HH:mm:ss");
-            }
-            if (time === "17:00:00") {
-                startRange = moment("12:01:00", "HH:mm:ss");
-                compareTime = moment("17:00:00", "HH:mm:ss");
-            }
-            if (time === "24:00:00") {
-                startRange = moment("17:01:00", "HH:mm:ss");
-                compareTime = moment("23:59:00", "HH:mm:ss");
-            }
-            if (courseTime.valueOf() >= startRange.valueOf() 
-                && courseTime.valueOf() <= compareTime.valueOf()) {
-            } else {
-                return false;
-            }
-        }
-
         // If we passed all those, this course is selected. Hooray!
         return true;
     });
@@ -157,16 +119,12 @@ function ViewModel() {
     self.coursesAtLocation = ko.observableArray();
     self.anySelected = ko.observable(false);
     self.selectedCourseName = ko.observable();
-    self.selectedDays = ko.observable();
-    self.selectedTimes = ko.observable();
     self.selectedDescription = ko.observable();
     self.selectedContactInfo = ko.observable();
     self.selectedUrl = ko.observable();
     
     self.select = function (data) {
         self.selectedCourseName(data.courseName);
-        self.selectedDays(data.days);
-        self.selectedTimes(data.times);
         self.selectedDescription(data.description);
         self.selectedContactInfo(data.contactInfo);
         self.selectedUrl(data.url);
@@ -196,6 +154,17 @@ function selectAddress(address) {
     updatePopup();
 }
 
+function selectAddressFromList(address) {
+    selectedAddress = address;
+    toggleDetails();
+    updatePopup();
+}
+
+function toggleDetails() {
+    $('#location-popup').toggle();
+    $('#location-list').toggle();
+}
+
 function updatePopup() {
     var matches = getFilteredCourses().filter(function (course) {
         return course.address == selectedAddress;
@@ -223,6 +192,9 @@ var markers = [];
 function insertPin(course) {
     var address = course.address;
     var organization = course.organization;
+    $('#location_table tbody').html('');
+    //alert($('#location_table tbody').html());
+    listLocation(organization, address); // here
 
     if (course.latitudeLongitude === "") {
         geocoder.geocode(
@@ -262,11 +234,18 @@ function initialize() {
     geocoder = new google.maps.Geocoder();
 
     ko.applyBindings(model);
+    // declare jquery listeners
     $("select.filter_menu").change(updateMap);
     $("#aboutLink").click(function() {
         $("#about_window").toggle();    
     });
     startDataLoad(updateMap);
+}
+
+function showHideLocations() {
+    $("#location-list").toggle();    
+    $("#location-top").toggle();    
+    $("#navigation").toggle();    
 }
 
 function hideAbout() {

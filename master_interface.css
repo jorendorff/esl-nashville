@@ -194,6 +194,10 @@ button {
     cursor: pointer;
 }
 
+button:hover {
+    background-color: #666666;
+}
+
 .hide {
     float: right;
     width: 26px;
@@ -233,3 +237,129 @@ button {
 .hide_about  {
     margin-right: 20px;
 }
+
+#filters {
+    text-align: center;
+}
+
+#search_button {
+    display: none;
+    margin: 10px auto;
+    text-align: center;
+}
+
+#location-list {
+    display: none;
+}
+
+.back_button {
+    display: none;
+}
+
+/****** MOBILE STYLES ******/
+
+/* iPhone5 () ----------- */
+@media (max-width : 320px) {
+
+    #navigation {
+        width: 100%;
+        float: none;
+        text-align: center;
+    }
+
+    #location-popup {
+        display: block;
+        display: none;
+        width: 100%;
+        height: 
+        position: relative;
+        margin: 0px;
+        padding: 1.5em 1em;
+        border: none;
+        right: auto;
+        top: auto;
+        color: #888;
+        box-shadow: none;
+        padding: 0px;
+    }
+
+    #location-popup .hide{
+        display: none;
+    }
+
+    .back_button {
+        width: 100%;
+        display: block;
+    }
+
+    img {
+        width: 100%;
+    }
+
+    #logo {
+        width: 100px;
+        margin: 0px auto;
+    }
+
+    #logo p {
+        display: none;
+    }
+
+    #navigation ul {
+        display: block;
+        text-align: center;
+    }
+
+    #map-canvas {
+        display: none;
+    }
+
+    #aboutLink {
+        display: none;
+    }
+
+    #filters {
+        width: 250px;
+        margin: 0px auto;
+    }
+
+    #search_button {
+        display: block;
+    }
+
+    #location-list {
+        display: none;
+    }
+
+    #location-list th {
+        font-size: 20px;
+        color: #784cc6;
+        font-weight: lighter;
+        padding-top: 5px;
+    }
+
+    .location-button {
+        font-size: 14px;
+        padding: 5px 20px 5px 10px;
+        background: #f1edf9 url(images/icon_class_arrow.png) right 8px no-repeat;
+        height: 25px;
+    }
+
+    .location-button:active {
+        background: #784cc6;
+        color: #fff;
+    }
+}
+
+/* iPhone4 (landscape) ----------- */
+/*@media only screen 
+and (min-device-width : 320px) 
+and (max-device-width : 480px) 
+and (orientation : landscape) {
+        #map-canvas {
+            display: none;
+        }
+
+}*/
+
+/* iPhone4 (portrait) ----------- */
