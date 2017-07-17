@@ -33,6 +33,9 @@ function onSpreadsheetData(json) {
         // Populate all the fields.
         fields.forEach(function (name) {
             var fieldName = name.toLowerCase();
+            if (row["gsx$" + fieldName] === undefined) {
+                return;
+            }
             var value = row["gsx$" + fieldName].$t;
             if (sameOrg && value === "")
                 value = lastRow[name];
